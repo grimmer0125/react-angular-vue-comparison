@@ -140,7 +140,7 @@ const queryStargazers = async (owner, name, accessToken) => {
 
   let owner, name, result;
   
-  for (let i=0; i<2; i++) {
+  for (let i=0; i<3; i++) {
     if (i === 0) {
       owner = "vuejs"; 
       name = "vue"; 
@@ -162,7 +162,6 @@ const queryStargazers = async (owner, name, accessToken) => {
         return console.log(err);
       }
       console.log("The file was saved!");
-    });
-    
+    });    
   }
 })();
