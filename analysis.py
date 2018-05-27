@@ -12,7 +12,7 @@ import plotly
 import plotly.graph_objs as go
 import operator
 
-# 51588/95056 (include country/all) for vue repo, China:15836 (0.307), Taiwan: 664
+# 545/51588/95056 (not find/include country/all) for vue repo, China:15836 (0.307), Taiwan: 664
 # 59582/96468 for react repo, China:12033 (0.202), Taiwan: 724
 # 21858/36510 for angular repo, China:3611, taiwan: 188
 
@@ -21,7 +21,7 @@ import operator
 
 class Analysis():
     def __init__(self):
-        self.files = ["vuejs-vue"] #, "facebook-react", "angular-angular"]
+        self.files = ["vuejs-vue", "facebook-react", "angular-angular"]
 
     def get_country(self, location, google_key):
         result = geocoder.google(location, key=google_key, rate_limit=False)
@@ -31,8 +31,9 @@ class Analysis():
 
     def read_render(self):
         # use bar chart ot pie char
-        histogram_dict = {}    
+        group_data = [] 
         for file_name in self.files:
+            histogram_dict = {}    
             # file_name = "test3" # for testing
             with open(file_name+"-country.json") as f:
                 data = json.load(f)
@@ -57,20 +58,26 @@ class Analysis():
                 reverse=True)  
             x_list = []
             y_list = []
-            
+
             for pair in sorted_h:
-                if pair[1]<100:
+                if pair[1]<200:
                     break    
                 else:
-                    x_list.append(pair[0])
-                    y_list.append(pair[1])
+                    if pair[0] != "None":
+                        x_list.append(pair[0])
+                        y_list.append(pair[1])
 
-            data = [go.Bar(
+            trace_data = go.Bar(
                 x= x_list,#[i[0] for i in sorted_h], #list(histogram_dict.keys()), #['giraffes', 'orangutans', 'monkeys'],
-                y= y_list#[i[1] for i in sorted_h] #list(histogram_dict.values()) # [20, 14, 23]
-            )]
-
-            plotly.offline.plot(data)
+                y= y_list, #[i[1] for i in sorted_h] #list(histogram_dict.values()) # [20, 14, 23]
+                name = file_name
+            )
+            group_data.append(trace_data)  
+        layout = go.Layout(
+            barmode='group'
+        )              
+        fig = go.Figure(data=group_data, layout=layout)
+        plotly.offline.plot(fig)
 
     def append_countries(self):
         load_dotenv(verbose=True)
