@@ -5,9 +5,15 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "Python: Current File",
+            "type": "python",
+            "request": "launch",
+            "program": "${file}"
+        },
+        {
             "type": "node",
             "request": "launch",
-            "name": "Launch Program",
+            "name": "Launch Node.js Program",
             "program": "${workspaceFolder}/index.ts",
             "outFiles": [
                 "${workspaceFolder}/**/*.js"
