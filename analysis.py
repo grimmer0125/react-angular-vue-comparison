@@ -10,6 +10,7 @@ import os
 import plotly
 # import plotly.plotly as py
 import plotly.graph_objs as go
+import operator
 
 # 51588/95056 (include country/all) for vue repo, China:15836 (0.307), Taiwan: 664
 # 59582/96468 for react repo, China:12033 (0.202), Taiwan: 724
@@ -52,9 +53,21 @@ class Analysis():
             # if number_empty > 0:
             #     histogram_dict["empty"] = number_empty                                                                  
             # use histogram_dict to draw
+            sorted_h = sorted(histogram_dict.items(), key=operator.itemgetter(1), 
+                reverse=True)  
+            x_list = []
+            y_list = []
+            
+            for pair in sorted_h:
+                if pair[1]<100:
+                    break    
+                else:
+                    x_list.append(pair[0])
+                    y_list.append(pair[1])
+
             data = [go.Bar(
-                x= list(histogram_dict.keys()), #['giraffes', 'orangutans', 'monkeys'],
-                y= list(histogram_dict.values()) # [20, 14, 23]
+                x= x_list,#[i[0] for i in sorted_h], #list(histogram_dict.keys()), #['giraffes', 'orangutans', 'monkeys'],
+                y= y_list#[i[1] for i in sorted_h] #list(histogram_dict.values()) # [20, 14, 23]
             )]
 
             plotly.offline.plot(data)
