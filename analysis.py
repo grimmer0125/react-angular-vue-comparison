@@ -13,8 +13,8 @@ import plotly.graph_objs as go
 import operator
 
 # 545/51588/95056 (not find/include country/all) for vue repo, China:15836 (0.307), Taiwan: 664
-# 59582/96468 for react repo, China:12033 (0.202), Taiwan: 724
-# 21858/36510 for angular repo, China:3611, taiwan: 188
+# 550/59582/96468 for react repo, China:12033 (0.202), Taiwan: 724
+# 197/21858/36510 for angular repo, China:3611, taiwan: 188
 
 # ref: https://stackoverflow.com/questions/44208780/find-the-county-for-a-city-state
 # https://developers.google.com/maps/documentation/geocoding/start
@@ -22,15 +22,15 @@ import operator
 class Analysis():
     def __init__(self):
         self.files = ["vuejs-vue", "facebook-react", "angular-angular"]
-
     def get_country(self, location, google_key):
         result = geocoder.google(location, key=google_key, rate_limit=False)
         if result != None:
             return result.country_long # result.country
         return result    
 
-    def read_render(self):
-        # use bar chart ot pie char
+    def read_render(self, if_draw=False):
+        # use bar chart or pie char to show
+        print("read_render")
         group_data = [] 
         for file_name in self.files:
             histogram_dict = {}    
@@ -77,7 +77,11 @@ class Analysis():
             barmode='group'
         )              
         fig = go.Figure(data=group_data, layout=layout)
-        plotly.offline.plot(fig)
+        if if_draw == True:
+            print("start to draw chart")
+            plotly.offline.plot(fig)
+        else:
+            return fig    
 
     def append_countries(self):
         load_dotenv(verbose=True)
@@ -113,6 +117,6 @@ class Analysis():
 if __name__ == '__main__':
     print("start test of analysis")    
     cc = Analysis()
-    # cc.append_countries() 
-    cc.read_render()            
+    # cc.append_countries()     
+    cc.read_render(if_draw=True)            
     print("end test of analysis")
