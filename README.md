@@ -53,3 +53,12 @@ from analysis import Analysis
 cc = Analysis()
 cc.read_render(if_draw=True)   
 ```
+
+## Why GitHub v3 API is not used
+
+Since the response of the following v3 API used to get stargazers does not include location field. It only return the list of the stargazer account. We need to query each stargazer to get the location field. v4 GraphQL can let develoeprs to specifiy which fileds we need and get all the information in 1 request. 
+
+```
+https://api.github.com/
+GET /repos/:owner/:repo/stargazers
+```
