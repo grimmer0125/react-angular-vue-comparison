@@ -22,7 +22,7 @@ After a while, you will get `facebook-react.json` etc.
 
 **Enable paid version of Google API**
 
-[geocoder](https://github.com/DenisCarriere/geocoder) can use many [providers](https://github.com/DenisCarriere/geocoder#providers) and Google should be the best one. However there is a free quota to use Google API, [2500](https://developers.google.com/maps/documentation/geocoding/usage-limits) requests/day. Since our taget number exceeds this one. So I choose to enable the paid version of Google API. Finally I paid $2.3. 
+[geocoder](https://github.com/DenisCarriere/geocoder) can use many [providers](https://github.com/DenisCarriere/geocoder#providers) and Google should be the best one. However there is a free quota to use Google API, [2500](https://developers.google.com/maps/documentation/geocoding/usage-limits) requests/day. Since our taget number exceeds this one. So I choose to enable the paid version of Google API. Finally I paid $68 for rough 140,000 requests (= stargazers), 1 request for 1 stargazer.
 
 **Get the Google API key**
 
